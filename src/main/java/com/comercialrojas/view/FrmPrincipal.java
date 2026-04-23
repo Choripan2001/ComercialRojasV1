@@ -29,23 +29,34 @@ public class FrmPrincipal extends JFrame {
         panelOperaciones.setLayout(new BorderLayout());
 
         PanelVenta panelVenta = new PanelVenta();
+        new com.comercialrojas.controller.VentaControlador(panelVenta); // agregado recien para controlador
         panelOperaciones.add(panelVenta, BorderLayout.CENTER);
 
+        //PANEL CONSULTAS
+
         panelConsultas = new JPanel();
-        panelConsultas.add(new JLabel("Aquí irán las tablas de moras y ventas semanales"));
+        panelConsultas.setLayout(new BorderLayout());
+
+        PanelConsultas panelConsultasView = new PanelConsultas();
+        new com.comercialrojas.controller.ConsultasControlador(panelConsultasView, new com.comercialrojas.model.ConsultasDAO());
+
+        panelConsultas.add(panelConsultasView, BorderLayout.CENTER);
+
+        // PANEL MANTENIMIENTO
 
         panelMantenimiento = new JPanel();
         panelMantenimiento.setLayout(new BorderLayout());
-
         JTabbedPane pestanasMantenimiento = new JTabbedPane();
 
-        // Instanciación MVC para Cliente
+        // 1. Instanciación MVC para Cliente
         PanelCliente panelCliente = new PanelCliente();
-        com.comercialrojas.model.Cliente modeloCliente = new com.comercialrojas.model.Cliente();
-        com.comercialrojas.model.ClienteDAO daoCliente = new com.comercialrojas.model.ClienteDAO();
-        new com.comercialrojas.controller.ClienteControlador(modeloCliente, daoCliente, panelCliente);
-
+        new com.comercialrojas.controller.ClienteControlador(new com.comercialrojas.model.Cliente(), new com.comercialrojas.model.ClienteDAO(), panelCliente);
         pestanasMantenimiento.addTab("Gestión de Clientes", panelCliente);
+
+        // 2. Instanciación MVC para Producto
+        PanelProducto panelProducto = new PanelProducto();
+        new com.comercialrojas.controller.ProductoControlador(new com.comercialrojas.model.Producto(), new com.comercialrojas.model.ProductoDAO(), panelProducto);
+        pestanasMantenimiento.addTab("Gestión de Productos", panelProducto);
 
         panelMantenimiento.add(pestanasMantenimiento, BorderLayout.CENTER);
 
