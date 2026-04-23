@@ -26,7 +26,10 @@ public class FrmPrincipal extends JFrame {
 
         // Inicializar cada pestaña
         panelOperaciones = new JPanel();
-        panelOperaciones.add(new JLabel("Aquí irá el formulario de ventas"));
+        panelOperaciones.setLayout(new BorderLayout());
+
+        PanelVenta panelVenta = new PanelVenta();
+        panelOperaciones.add(panelVenta, BorderLayout.CENTER);
 
         panelConsultas = new JPanel();
         panelConsultas.add(new JLabel("Aquí irán las tablas de moras y ventas semanales"));
